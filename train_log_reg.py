@@ -21,6 +21,14 @@ def test_from_file(feature_file, model_file):
 			predicted_labels += [agent.test(str_to_list(feature, int))]
 		return predicted_labels
 
+def check_accuracy(predicted_label_file, true_label_file):
+	score = 0
+	with open(predicted_label_file) as pred_labels, open(true_label_file) as true_labels:
+		for pred_label, true_label in zip(pred_labels, true_labels):
+			if int(pred_label) == int(true_label):
+				score += 1
+	return score
+
 def export_vector(vector, path, orientation='row'):
 	end_char = ' ' if orientation == 'row' else '\n' if orientation == 'column' else ''
 	with open(path, mode='w') as fout:
@@ -33,7 +41,10 @@ agent = train_from_file(training_feature, training_label, feature_dimension)
 model = agent.weight_vector
 export_vector(model, model_file)
 
-test_feature, test_label = './testFeature.dat', './testLabel.dat'
-predicted_labels = test_from_file(test_feature, model_file)
-export_vector(predicted_labels, test_label, orientation='column')
+test_feature, predicted_label = './testFeature.dat', './predLabel.dat'
+test_results = test_from_file(test_feature, model_file)
+export_vector(test_results, predicted_label, orientation='column')
+
+true_label = './trueLabel.dat'
+print('accuracy:', check_accuracy(predicted_label, true_label))
 	
