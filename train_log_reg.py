@@ -5,7 +5,7 @@ def str_to_list(string, list_type):
 
 def train_from_file(feature_file, label_file, feature_dimension):
 	with open(feature_file) as features, open(label_file) as labels:
-		agent = logistic_regression_learning_agent(dimension=feature_dimension)
+		agent = LogisticRegressionLearningAgent(dimension=feature_dimension)
 		for raw_feature, raw_label in zip(features, labels):
 			feature = str_to_list(raw_feature, int)
 			label = int(raw_label)
@@ -15,7 +15,7 @@ def train_from_file(feature_file, label_file, feature_dimension):
 def test_from_file(feature_file, model_file):
 	with open(feature_file) as features, open(model_file) as model:
 		weight_vector = str_to_list(model.readline(), float)
-		agent = logistic_regression_learning_agent(model=weight_vector)
+		agent = LogisticRegressionLearningAgent(model=weight_vector)
 		predicted_labels = []
 		for feature in features:
 			predicted_labels += [agent.test(str_to_list(feature, int))]

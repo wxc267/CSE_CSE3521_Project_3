@@ -2,7 +2,7 @@ import math
 import numpy
 
 
-class logistic_regression_learning_agent:
+class LogisticRegressionLearningAgent:
 	
 	def __init__(self, dimension=None, model=None):
 		if model is None and dimension is None:
