@@ -21,7 +21,7 @@ class LogisticRegressionLearningAgent:
 	@classmethod
 	def gradient_L(cls, w, x, y):
 		logistic = 1 + math.exp(-y * numpy.dot(w, x))
-		gradient = -y * x * ((logistic - 1) /logistic)
+		gradient = -y * x * ((logistic - 1) / logistic)
 		return gradient
 	
 	@property
